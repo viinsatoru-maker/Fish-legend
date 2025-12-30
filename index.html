@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Legend - Game Memancing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header dengan Stats -->
+        <header class="game-header">
+            <div class="stats-container">
+                <div class="stat">
+                    <i class="fas fa-coins"></i>
+                    <span id="coins">500</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-level-up-alt"></i>
+                    <span id="level">1</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-fish"></i>
+                    <span id="total-fish">0</span>
+                </div>
+            </div>
+            
+            <div class="weather-info">
+                <div id="weather-display">
+                    <span>☀️</span>
+                    <span>Cerah</span>
+                </div>
+            </div>
+            
+            <div class="spot-display" id="spot-display">
+                <span>📍 Danau Biasa</span>
+            </div>
+        </header>
+
+        <!-- Fishing Area -->
+        <main class="game-main">
+            <section class="fishing-area">
+                <div class="fish-display" id="fish-display">
+                    <!-- Ikan-ikan akan muncul di sini -->
+                </div>
+                
+                <div class="fishing-line"></div>
+                <div class="hook"></div>
+                
+                <button id="fish-btn" class="fish-button">
+                    <i class="fas fa-fishing-rod"></i> 🎣 Mancing!
+                </button>
+                
+                <div id="luck-display" class="luck-display">
+                    <!-- Luck info akan muncul di sini -->
+                </div>
+            </section>
+            
+            <!-- Minigame Indicator -->
+            <div id="minigame-indicator" class="minigame-indicator" style="display: none;">
+                <div class="indicator-bar">
+                    <div class="indicator-target"></div>
+                    <div class="indicator-needle"></div>
+                </div>
+                <p>Tekan TARIK! saat jarum di area kuning!</p>
+            </div>
+
+            <!-- Fishing Spot Buttons -->
+            <div class="spot-buttons" id="spot-buttons">
+                <!-- Spot buttons akan dibuat oleh JavaScript -->
+            </div>
+        </main>
+
+        <!-- Navigation Tabs -->
+        <nav class="game-tabs">
+            <button class="tab active" data-tab="backpack">
+                <i class="fas fa-backpack"></i> Backpack
+            </button>
+            <button class="tab" data-tab="shop">
+                <i class="fas fa-store"></i> Toko
+            </button>
+            <button class="tab" data-tab="sell">
+                <i class="fas fa-money-bill-wave"></i> Jual
+            </button>
+            <button class="tab" data-tab="gacha">
+                <i class="fas fa-dice"></i> Gacha
+            </button>
+            <button class="tab" data-tab="quests">
+                <i class="fas fa-tasks"></i> Quests
+            </button>
+            <button class="tab" data-tab="aquarium">
+                <i class="fas fa-fish"></i> Aquarium
+            </button>
+            <button class="tab" data-tab="village">
+                <i class="fas fa-home"></i> Desa
+            </button>
+            <button class="tab" data-tab="settings">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+        </nav>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Backpack Tab -->
+            <div id="backpack" class="tab-pane active">
+                <div class="inventory-controls">
+                    <button id="sort-rarity" class="sort-btn">
+                        <i class="fas fa-star"></i> Sort Rarity
+                    </button>
+                    <button id="sort-price" class="sort-btn">
+                        <i class="fas fa-coins"></i> Sort Harga
+                    </button>
+                </div>
+                <div id="backpack-items" class="items-grid">
+                    <!-- Item backpack akan dimuat di sini -->
+                </div>
+            </div>
+
+            <!-- Shop Tab -->
+            <div id="shop" class="tab-pane">
+                <div class="shop-categories">
+                    <button class="category-btn active" data-category="rods">
+                        <i class="fas fa-fishing-rod"></i> Pancingan
+                    </button>
+                    <button class="category-btn" data-category="baits">
+                        <i class="fas fa-worm"></i> Umpan
+                    </button>
+                    <button class="category-btn" data-category="potions">
+                        <i class="fas fa-flask"></i> Potion
+                    </button>
+                    <button class="category-btn" data-category="upgrades">
+                        <i class="fas fa-arrow-up"></i> Upgrade
+                    </button>
+                </div>
+                <div id="shop-items" class="items-grid">
+                    <!-- Item toko akan dimuat di sini -->
+                </div>
+            </div>
+
+            <!-- Sell Tab -->
+            <div id="sell" class="tab-pane">
+                <div class="sell-controls">
+                    <div class="auto-sell-settings">
+                        <label>
+                            <input type="checkbox" id="auto-sell-basic"> Auto-sell Basic
+                        </label>
+                        <label>
+                            <input type="checkbox" id="auto-sell-legendary"> Auto-sell Legendary
+                        </label>
+                    </div>
+                    
+                    <div class="sell-summary">
+                        <p>Total: <span id="sell-total">0</span> koin</p>
+                        <button id="sell-btn" class="sell-btn" disabled>
+                            <i class="fas fa-cash-register"></i> Jual Terpilih
+                        </button>
+                        <button id="sell-all-btn" class="sell-btn sell-all">
+                            <i class="fas fa-dumpster-fire"></i> Jual Semua
+                        </button>
+                    </div>
+                </div>
+                <div id="sell-items" class="items-grid">
+                    <!-- Item untuk dijual akan dimuat di sini -->
+                </div>
+            </div>
+
+            <!-- Gacha Tab -->
+            <div id="gacha" class="tab-pane">
+                <div class="gacha-section">
+                    <div class="gacha-info">
+                        <h3>🎰 Gacha Rod Enchantment</h3>
+                        <p>500 koin per spin</p>
+                        <button id="gacha-btn" class="gacha-spin-btn">
+                            <i class="fas fa-dice"></i> SPIN GACHA!
+                        </button>
+                    </div>
+                    
+                    <div class="gacha-stats">
+                        <h4>Gacha Stats</h4>
+                        <p>Total Spins: <span id="total-spins">0</span></p>
+                        <p>Rods Obtained: <span id="rods-obtained">0</span>/5</p>
+                    </div>
+                </div>
+                
+                <div class="gacha-rewards" id="gacha-rewards">
+                    <!-- Rewards akan dimuat di sini -->
+                </div>
+            </div>
+
+            <!-- Quests Tab -->
+            <div id="quests" class="tab-pane">
+                <div class="quests-container">
+                    <h3>🎯 Quests</h3>
+                    <div id="quests-list">
+                        <!-- Quests akan dimuat di sini -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aquarium Tab -->
+            <div id="aquarium" class="tab-pane">
+                <div class="aquarium-stats">
+                    <h3>🐠 Aquarium Collection</h3>
+                    <p>Species: <span id="species-count">0</span>/<span id="total-species">0</span></p>
+                    <p>Completion: <span id="collection-percent">0%</span></p>
+                </div>
+                
+                <div class="fish-tanks">
+                    <div id="basic-tank" class="fish-tank">
+                        <h4>Basic Fish</h4>
+                    </div>
+                    <div id="legendary-tank" class="fish-tank">
+                        <h4>Legendary Fish</h4>
+                    </div>
+                    <div id="mythical-tank" class="fish-tank">
+                        <h4>Mythical Fish</h4>
+                    </div>
+                    <div id="secret-tank" class="fish-tank">
+                        <h4>Secret Fish</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Village Tab -->
+            <div id="village" class="tab-pane">
+                <div class="village-stats">
+                    <h3>🏠 Fishing Village</h3>
+                    <div class="village-upgrade">
+                        <h4>Fishing Hut</h4>
+                        <p>Level: <span id="hut-level">1</span> (+10% luck per level)</p>
+                    </div>
+                    
+                    <div class="village-upgrade">
+                        <h4>Assistants</h4>
+                        <p>Count: <span id="assistant-count">0</span>/3</p>
+                        <p>Auto-fish every 30 seconds</p>
+                    </div>
+                </div>
+                
+                <div id="active-effects" class="active-effects">
+                    <!-- Active effects akan muncul di sini -->
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-pane">
+                <div class="settings-container">
+                    <h3>⚙️ Game Settings</h3>
+                    <div class="setting-option">
+                        <label>
+                            <input type="checkbox" id="animations" checked>
+                            Enable Animations
+                        </label>
+                    </div>
+                    <div class="setting-option">
+                        <label>
+                            <input type="checkbox" id="notifications" checked>
+                            Enable Notifications
+                        </label>
+                    </div>
+                    <button class="save-btn" onclick="saveGame()">
+                        <i class="fas fa-save"></i> Save Game
+                    </button>
+                    <button class="reset-btn" onclick="resetGame()">
+                        <i class="fas fa-redo"></i> Reset Game
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div id="notification-container" class="notification-container"></div>
+
+        <!-- Modals -->
+        <div id="result-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 id="result-title">Hasil Mancing</h3>
+                <div id="result-content">
+                    <!-- Hasil mancing akan dimuat di sini -->
+                </div>
+            </div>
+        </div>
+
+        <div id="gacha-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 id="gacha-title">Hasil Gacha</h3>
+                <div id="gacha-content">
+                    <!-- Hasil gacha akan dimuat di sini -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
