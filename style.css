@@ -1,0 +1,799 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #87CEEB, #1E90FF);
+    color: white;
+    min-height: 100vh;
+    transition: background 0.5s ease;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* Header Styles */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.stats-container {
+    display: flex;
+    gap: 20px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 10px;
+}
+
+.stat i {
+    color: #FFD700;
+}
+
+.weather-info, .spot-display {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+/* Main Fishing Area */
+.game-main {
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+.fishing-area {
+    position: relative;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.fish-display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.fish {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.7;
+    animation: swim 15s infinite linear;
+}
+
+@keyframes swim {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(calc(100vw + 100px)); }
+}
+
+.fishing-line {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    width: 2px;
+    height: 150px;
+    background: linear-gradient(to top, #8B4513, #D2691E);
+    transform-origin: bottom;
+}
+
+.hook {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: #666;
+    border-radius: 50% 50% 0 0;
+    transform: translateX(-50%);
+    transition: top 0.5s ease;
+}
+
+.fish-button {
+    background: linear-gradient(to right, #ff8a00, #e52e71);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.fish-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.fish-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Minigame Indicator */
+.minigame-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 100;
+    border: 3px solid #FFD700;
+}
+
+.indicator-bar {
+    width: 300px;
+    height: 30px;
+    background: #333;
+    border-radius: 15px;
+    position: relative;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.indicator-target {
+    position: absolute;
+    left: 40%;
+    width: 20%;
+    height: 100%;
+    background: #FFD700;
+    border-radius: 15px;
+}
+
+.indicator-needle {
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background: #FF0000;
+    left: 0;
+}
+
+@keyframes needleSweep {
+    0%, 100% { left: 0; }
+    50% { left: calc(100% - 4px); }
+}
+
+/* Spot Buttons */
+.spot-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.spot-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.spot-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Tabs */
+.game-tabs {
+    display: flex;
+    overflow-x: auto;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding: 5px;
+    gap: 5px;
+}
+
+.game-tabs::-webkit-scrollbar {
+    height: 5px;
+}
+
+.game-tabs::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.tab {
+    flex: 1;
+    min-width: 120px;
+    padding: 15px 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: all 0.3s;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab.active {
+    background: linear-gradient(to right, #4A90E2, #9013FE);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Tab Content */
+.tab-content {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    min-height: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Inventory & Shop Items */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.item-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #4A90E2;
+}
+
+.fish-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.item-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.item-rarity {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin: 5px 0;
+}
+
+.rarity-basic { background: #87CEEB; color: #000; }
+.rarity-legendary { background: #FFD700; color: #000; }
+.rarity-mythical { background: #FF69B4; color: #000; }
+.rarity-secret { background: #00FFFF; color: #000; }
+
+.item-price {
+    color: #FFD700;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.item-luck {
+    font-size: 0.9rem;
+    color: #90EE90;
+    margin: 5px 0;
+}
+
+/* Buttons */
+.buy-btn, .sort-btn, .sell-btn, .gacha-spin-btn, .save-btn, .reset-btn {
+    background: linear-gradient(to right, #4A90E2, #9013FE);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.buy-btn:hover, .sort-btn:hover, .sell-btn:hover, .gacha-spin-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.buy-btn:disabled, .sell-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sell-all {
+    background: linear-gradient(to right, #FF416C, #FF4B2B);
+}
+
+.gacha-spin-btn {
+    font-size: 1.5rem;
+    padding: 20px;
+    background: linear-gradient(45deg, #FFD700, #FF8C00);
+}
+
+/* Shop Categories */
+.shop-categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.category-btn {
+    padding: 10px 20px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.category-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.category-btn.active {
+    background: linear-gradient(to right, #4A90E2, #9013FE);
+}
+
+/* Sell Controls */
+.sell-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.auto-sell-settings {
+    display: flex;
+    gap: 20px;
+}
+
+.auto-sell-settings label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.sell-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Gacha Section */
+.gacha-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.gacha-stats {
+    text-align: right;
+}
+
+.gacha-rewards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gacha-reward-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.gacha-reward-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+/* Quests */
+.quests-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quest-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #4A90E2;
+}
+
+.quest-item.completed {
+    border-left-color: #00FF00;
+    opacity: 0.7;
+}
+
+.quest-progress {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(to right, #4A90E2, #9013FE);
+    border-radius: 5px;
+    transition: width 0.3s;
+}
+
+/* Aquarium */
+.aquarium-stats {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.fish-tanks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.fish-tank {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 150px;
+}
+
+.fish-in-tank {
+    display: inline-block;
+    font-size: 2rem;
+    margin: 5px;
+    animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.empty-tank {
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Village */
+.village-stats {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.village-upgrade {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.active-effects {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.effect-item {
+    background: linear-gradient(to right, rgba(74, 144, 226, 0.3), rgba(144, 19, 254, 0.3));
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Settings */
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setting-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.setting-option label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.setting-option input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Notifications */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: white;
+    animation: notificationSlideIn 0.3s ease;
+    max-width: 300px;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes notificationSlideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes notificationSlideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+.notification.success {
+    background: rgba(46, 204, 113, 0.9);
+    border-left: 5px solid #27ae60;
+}
+
+.notification.error {
+    background: rgba(231, 76, 60, 0.9);
+    border-left: 5px solid #c0392b;
+}
+
+.notification.info {
+    background: rgba(52, 152, 219, 0.9);
+    border-left: 5px solid #2980b9;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    border: 3px solid #4A90E2;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #FF6B6B;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stats-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .game-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    
+    .tab {
+        min-width: 100px;
+        font-size: 0.9rem;
+        padding: 10px 5px;
+    }
+    
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .sell-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .gacha-section {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .gacha-stats {
+        text-align: center;
+    }
+    
+    .fish-tanks {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .stat {
+        font-size: 1rem;
+        padding: 5px 10px;
+    }
+    
+    .fish-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    .indicator-bar {
+        width: 250px;
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .spot-buttons {
+        flex-direction: column;
+    }
+    
+    .spot-btn {
+        width: 100%;
+    }
+}
+
+/* Empty Message */
+.empty-message {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 40px;
+    font-style: italic;
+}
+
+/* Checkbox Styles */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4A90E2;
+    cursor: pointer;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(74, 144, 226, 0.8);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(74, 144, 226, 1);
+}
+
+/* Luck Display */
+.luck-display {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
